@@ -1,0 +1,35 @@
+{
+    "name": "anywhere-portal",
+    "version": "1.0.0",
+    "description": "NodeJS server for static files",
+    "main": "build/index.js",
+    "dependencies": {},
+    "devDependencies": {
+        "babel-eslint": "^8.2.3",
+        "eslint": "^4.19.1",
+        "pre-commit": "^1.2.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/taowang0622/anywhere-portal.git"
+    },
+    "keywords": [
+        "nodejs",
+        "webserver",
+        "static"
+    ],
+    "author": "tao",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/taowang0622/anywhere-portal/issues"
+    },
+    "homepage": "https://github.com/taowang0622/anywhere-portal#readme",
+    "scripts": {
+        "lint": "eslint .",
+        "fix": "eslint --fix ."
+    },
+    "pre-commit": [
+        "fix",
+        "lint"
+    ]
+}
