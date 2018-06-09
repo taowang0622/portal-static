@@ -1,1 +1,1 @@
-console.log("tao");
+console.info("tao");
