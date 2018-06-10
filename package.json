@@ -3,7 +3,9 @@
     "version": "1.0.0",
     "description": "NodeJS server for static files",
     "main": "build/index.js",
-    "dependencies": {},
+    "dependencies": {
+        "chalk": "^2.4.1"
+    },
     "devDependencies": {
         "babel-eslint": "^8.2.3",
         "eslint": "^4.19.1",
