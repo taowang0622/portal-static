@@ -1,2 +1,2 @@
-# anywhere-portal
+# portal
 NodeJS server for static files
