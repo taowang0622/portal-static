@@ -16,6 +16,7 @@ const templatePath = path.join(__dirname, '../template/dir.pug');
 //According the property of loading module, this is run just once!
 const source = fs.readFileSync(templatePath);
 const template = pug.compile(source.toString());
+const compress = require('../helper/compress');
 
 
 module.exports = async function (req, res, filePath) {
@@ -26,7 +27,13 @@ module.exports = async function (req, res, filePath) {
             res.statusCode = 200;
             const contentType = mime(filePath).type;
             res.setHeader('Content-Type', contentType);
-            fs.createReadStream(filePath).pipe(res); //All streams are instances of EventEmitter=>all streams are asynchronous!!
+            //All streams are instances of EventEmitter=>all streams are asynchronous!!
+            let rs = fs.createReadStream(filePath);
+            //only compress specified files
+            if(filePath.match(conf.compress)){
+                rs = compress(rs, req, res);
+            }
+            rs.pipe(res);
         } else if (stats.isDirectory()) {
             const files = await readdir(filePath);
             res.statusCode = 200;
