@@ -9,7 +9,7 @@ const stat = promisify(fs.stat);
 const readdir = promisify(fs.readdir);
 
 const pug = require('pug');
-//__dirname and __filename are absolute!!!
+//__dirname and __filename are absolute
 //When reading files, use absolute paths
 const templatePath = path.join(__dirname, '../template/dir.pug');
 //Code below relys on source so it should be sync
@@ -24,7 +24,7 @@ module.exports = async function (req, res, filePath) {
 
         if (stats.isFile()) {
             res.statusCode = 200;
-            const contentType = mime(filePath);
+            const contentType = mime(filePath).type;
             res.setHeader('Content-Type', contentType);
             fs.createReadStream(filePath).pipe(res); //All streams are instances of EventEmitter=>all streams are asynchronous!!
         } else if (stats.isDirectory()) {
@@ -39,7 +39,8 @@ module.exports = async function (req, res, filePath) {
                 files: files.map(file => {
                     return {
                         name: file,
-                        icon: mime(file)
+                        //don't ever construct file path using '+', instead, use path module
+                        icon: fs.statSync(path.join(filePath, file)).isDirectory() ? 'fiv-icon-folder': mime(file).class
                     }
                 })
             }
