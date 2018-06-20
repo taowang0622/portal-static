@@ -17,6 +17,7 @@ const templatePath = path.join(__dirname, '../template/dir.pug');
 const source = fs.readFileSync(templatePath);
 const template = pug.compile(source.toString());
 const compress = require('../helper/compress');
+const range = require('../helper/range');
 
 
 module.exports = async function (req, res, filePath) {
@@ -24,11 +25,18 @@ module.exports = async function (req, res, filePath) {
         var stats = await stat(filePath);
 
         if (stats.isFile()) {
-            res.statusCode = 200;
             const contentType = mime(filePath).type;
             res.setHeader('Content-Type', contentType);
-            //All streams are instances of EventEmitter=>all streams are asynchronous!!
-            let rs = fs.createReadStream(filePath);
+            let {code, start, end} = range(stats.size, req, res); //according to the doc of range, start and end may be undefined!
+            let rs;
+            if(code === 200){
+                res.statusCode = 200;
+                rs = fs.createReadStream(filePath);
+            } else if (code === 206){
+                res.statusCode = 206;
+                rs = fs.createReadStream(filePath, {start, end});
+            }
+            // Todo: process the situation of 416
             //only compress specified files
             if(filePath.match(conf.compress)){
                 rs = compress(rs, req, res);
