@@ -1,7 +1,7 @@
 # portal
 A NodeJS web server for static files
 
-## Install
+## InstallationE
 
 ```
 npm i -g portal

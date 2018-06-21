@@ -1,5 +1,6 @@
 const fs = require('fs');
-const conf = require('../config/defaultConfig');
+// const conf = require('../config/defaultConfig');
+//Comment out the above line because we open up the configurations to users through command line, not hardcoded by defaultConfig.js
 const path = require('path');
 const mime = require('../helper/mime');
 
@@ -21,7 +22,14 @@ const range = require('../helper/range');
 const isFresh = require('../helper/cache');
 
 
-module.exports = async function (req, res, filePath) {
+/**
+ *Resolving requests for static resources through different URLs
+ * @param {object} req
+ * @param {object} res
+ * @param {object} filePath is the path part of URL that represents the requested resourse
+ * @param {object} conf is the object holding configurations
+ */
+module.exports = async function (req, res, filePath, conf) {
     try {
         var stats = await stat(filePath);
 

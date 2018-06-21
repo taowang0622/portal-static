@@ -2,10 +2,12 @@
     "name": "anywhere-portal",
     "version": "0.0.1",
     "description": "NodeJS server for static files",
-    "main": "build/index.js",
+    "main": "src/app.js",
+    "bin": "bin/portal",
     "dependencies": {
         "chalk": "^2.4.1",
-        "pug": "^2.0.3"
+        "pug": "^2.0.3",
+        "yargs": "^11.0.0"
     },
     "devDependencies": {
         "babel-eslint": "^8.2.3",
