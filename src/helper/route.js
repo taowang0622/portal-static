@@ -18,6 +18,7 @@ const source = fs.readFileSync(templatePath);
 const template = pug.compile(source.toString());
 const compress = require('../helper/compress');
 const range = require('../helper/range');
+const isFresh = require('../helper/cache');
 
 
 module.exports = async function (req, res, filePath) {
@@ -27,7 +28,14 @@ module.exports = async function (req, res, filePath) {
         if (stats.isFile()) {
             const contentType = mime(filePath).type;
             res.setHeader('Content-Type', contentType);
-            let {code, start, end} = range(stats.size, req, res); //according to the doc of range, start and end may be undefined!
+
+            if(isFresh(stats, req, res)){
+                res.statusCode = 304;
+                res.end(); //close the stream to prevent memory leak!
+                return;
+            }
+
+            let {code, start, end} = range(stats.size, req, res); //according to the doc of the function range, start and end may be undefined!
             let rs;
             if(code === 200){
                 res.statusCode = 200;
