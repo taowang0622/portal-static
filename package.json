@@ -1,8 +1,8 @@
 {
     "name": "portal",
     "version": "0.1.0",
-    "description": "NodeJS server for static files",
     "main": "src/app.js",
+    "description": "NodeJS server for static files",
     "bin": "bin/portal",
     "dependencies": {
         "chalk": "^2.4.1",
