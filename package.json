@@ -1,5 +1,5 @@
 {
-    "name": "portal",
+    "name": "portal-static",
     "version": "0.1.0",
     "main": "src/app.js",
     "description": "NodeJS server for static files",

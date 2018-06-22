@@ -4,7 +4,7 @@ A NodeJS web server for static files
 ## InstallationE
 
 ```
-npm i -g portal
+npm i -g portal-static
 ```
 
 ## Usage
