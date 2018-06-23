@@ -1,4 +1,4 @@
-# portal
+# portal-static
 A NodeJS web server for static files
 
 ## Description
