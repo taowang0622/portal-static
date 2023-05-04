@@ -9,7 +9,7 @@ const argv = yargs
         default: 9527 //Actually not necessary as we have set default values in defaultConfig.js
     })
     .option('h', {
-        alias: 'host',
+        alias: 'hostname',
         describe: 'host name',
         default: '127.0.0.1'
     })
